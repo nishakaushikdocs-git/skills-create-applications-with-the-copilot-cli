@@ -8,6 +8,9 @@
  * - Subtraction (-)
  * - Multiplication (*)
  * - Division (/)
+ * - Modulo (%)
+ * - Exponentiation (^)
+ * - Square Root (√ or sqrt)
  * 
  * Usage: node calculator.js <number1> <operation> <number2>
  * Example: node calculator.js 10 + 5
@@ -32,6 +35,24 @@ function divide(a, b) {
   return a / b;
 }
 
+function modulo(a, b) {
+  if (b === 0) {
+    throw new Error('Cannot perform modulo by zero');
+  }
+  return a % b;
+}
+
+function power(base, exponent) {
+  return Math.pow(base, exponent);
+}
+
+function squareRoot(n) {
+  if (n < 0) {
+    throw new Error('Cannot calculate square root of a negative number');
+  }
+  return Math.sqrt(n);
+}
+
 function calculate(num1, operation, num2) {
   switch (operation) {
     case '+':
@@ -42,6 +63,12 @@ function calculate(num1, operation, num2) {
       return multiply(num1, num2);
     case '/':
       return divide(num1, num2);
+    case '%':
+      return modulo(num1, num2);
+    case '^':
+      return power(num1, num2);
+    case 'sqrt':
+      return squareRoot(num1);
     default:
       throw new Error(`Unknown operation '${operation}'`);
   }
@@ -53,6 +80,9 @@ module.exports = {
   subtract,
   multiply,
   divide,
+  modulo,
+  power,
+  squareRoot,
   calculate
 };
 
@@ -62,7 +92,7 @@ if (require.main === module) {
 
   if (args.length !== 3) {
     console.error('Usage: calculator <number1> <operation> <number2>');
-    console.error('Operations: + (addition), - (subtraction), * (multiplication), / (division)');
+    console.error('Operations: + (addition), - (subtraction), * (multiplication), / (division), % (modulo), ^ (power), sqrt (square root)');
     process.exit(1);
   }
 
